@@ -20,7 +20,11 @@ var possible_pieces = [
 	preload("res://scenes/pink_piece.tscn"),
 	preload("res://scenes/yellow_piece.tscn"),
 	preload("res://scenes/orange_piece.tscn"),
+	preload("res://scenes/rainbow_piece.tscn")
 ]
+
+var piece_prob_array = []
+
 # current pieces in scene
 var all_pieces = []
 
@@ -45,6 +49,12 @@ func _ready():
 	state = MOVE
 	randomize()
 	all_pieces = make_2d_array()
+	for i in range(6): # del 0 al 5
+		for j in range(30):
+			piece_prob_array.append(i)
+			
+	# Agrega el índice de la rainbow_piece solo 1 vez
+	piece_prob_array.append(6)
 	spawn_pieces()
 
 func make_2d_array():
@@ -72,16 +82,18 @@ func spawn_pieces():
 	for i in width:
 		for j in height:
 			# random number
-			var rand = randi_range(0, possible_pieces.size() - 1)
+			var rand_index = randi_range(0, piece_prob_array.size() - 1)
+			var rand_piece_index = piece_prob_array[rand_index]
 			# instance 
-			var piece = possible_pieces[rand].instantiate()
+			var piece = possible_pieces[rand_piece_index].instantiate()
 			# repeat until no matches
 			var max_loops = 100
 			var loops = 0
 			while (match_at(i, j, piece.color) and loops < max_loops):
-				rand = randi_range(0, possible_pieces.size() - 1)
+				rand_index = randi_range(0, piece_prob_array.size() - 1)
+				rand_piece_index = piece_prob_array[rand_index]
 				loops += 1
-				piece = possible_pieces[rand].instantiate()
+				piece = possible_pieces[rand_piece_index].instantiate()
 			add_child(piece)
 			piece.position = grid_to_pixel(i, j)
 			# fill array with pieces
@@ -365,21 +377,22 @@ func collapse_columns():
 	get_parent().get_node("refill_timer").start()
 
 func refill_columns():
-	
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] == null:
 				# random number
-				var rand = randi_range(0, possible_pieces.size() - 1)
+				var rand_index = randi_range(0, piece_prob_array.size() - 1)
+				var rand_piece_index = piece_prob_array[rand_index]
 				# instance 
-				var piece = possible_pieces[rand].instantiate()
+				var piece = possible_pieces[rand_piece_index].instantiate()
 				# repeat until no matches
 				var max_loops = 100
 				var loops = 0
 				while (match_at(i, j, piece.color) and loops < max_loops):
-					rand = randi_range(0, possible_pieces.size() - 1)
+					rand_index = randi_range(0, piece_prob_array.size() - 1)
+					rand_piece_index = piece_prob_array[rand_index]
 					loops += 1
-					piece = possible_pieces[rand].instantiate()
+					piece = possible_pieces[rand_piece_index].instantiate()
 				add_child(piece)
 				piece.position = grid_to_pixel(i, j - y_offset)
 				piece.move(grid_to_pixel(i, j))
