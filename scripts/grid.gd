@@ -185,6 +185,7 @@ func find_matches(moved_piece: Node2D = null):
 					if piece != piece_to_make_special:
 						piece.matched = true
 						piece.dim()
+				break
 			# Combinación de 4
 			elif i <= width - 4 and \
 			all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
@@ -203,6 +204,7 @@ func find_matches(moved_piece: Node2D = null):
 					if piece != piece_to_make_special:
 						piece.matched = true
 						piece.dim()
+				break
 			# Combinación de 3
 			elif i <= width - 3 and \
 			all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
@@ -232,11 +234,7 @@ func find_matches(moved_piece: Node2D = null):
 					if piece != piece_to_make_special:
 						piece.matched = true
 						piece.dim()
-						
-				#for k in range(5):
-					#all_pieces[i][j+k].matched = true
-					#all_pieces[i][j+k].dim()
-					
+				break
 			# Combinación de 4
 			elif j <= height - 4 and \
 			all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
@@ -256,6 +254,7 @@ func find_matches(moved_piece: Node2D = null):
 						piece.matched = true
 						piece.dim()
 						
+				break
 			elif j <= height - 3 and \
 			all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
 			all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color:
