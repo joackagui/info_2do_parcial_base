@@ -20,7 +20,11 @@ var possible_pieces = [
 	preload("res://scenes/pink_piece.tscn"),
 	preload("res://scenes/yellow_piece.tscn"),
 	preload("res://scenes/orange_piece.tscn"),
+	preload("res://scenes/rainbow_piece.tscn")
 ]
+
+var piece_prob_array = []
+
 # current pieces in scene
 var all_pieces = []
 
@@ -45,6 +49,11 @@ func _ready():
 	state = MOVE
 	randomize()
 	all_pieces = make_2d_array()
+	for i in range(6):
+		for j in range(20):
+			piece_prob_array.append(i)
+	
+	piece_prob_array.append(6)
 	spawn_pieces()
 
 func make_2d_array():
@@ -72,16 +81,18 @@ func spawn_pieces():
 	for i in width:
 		for j in height:
 			# random number
-			var rand = randi_range(0, possible_pieces.size() - 1)
+			var rand_index = randi_range(0, piece_prob_array.size() - 1)
+			var rand_piece_index = piece_prob_array[rand_index]
 			# instance 
-			var piece = possible_pieces[rand].instantiate()
+			var piece = possible_pieces[rand_piece_index].instantiate()
 			# repeat until no matches
 			var max_loops = 100
 			var loops = 0
 			while (match_at(i, j, piece.color) and loops < max_loops):
-				rand = randi_range(0, possible_pieces.size() - 1)
+				rand_index = randi_range(0, piece_prob_array.size() - 1)
+				rand_piece_index = piece_prob_array[rand_index]
 				loops += 1
-				piece = possible_pieces[rand].instantiate()
+				piece = possible_pieces[rand_piece_index].instantiate()
 			add_child(piece)
 			piece.position = grid_to_pixel(i, j)
 			# fill array with pieces
@@ -126,6 +137,7 @@ func swap_pieces(column, row, direction: Vector2):
 	#other_piece.position = grid_to_pixel(column, row)
 	first_piece.move(grid_to_pixel(column + direction.x, row + direction.y))
 	other_piece.move(grid_to_pixel(column, row))
+	
 	if not move_checked:
 		find_matches()
 
@@ -166,107 +178,140 @@ func find_matches(moved_piece: Node2D = null):
 		for j in height:
 			if all_pieces[i][j] == null:
 				continue
-				
+
 			var current_color = all_pieces[i][j].color
-			# Combinación de 5
+
+			# HORIZONTAL
+			# 5 iguales
 			if i <= width - 5 and \
-			all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
-			all_pieces[i+2][j] != null and all_pieces[i+2][j].color == current_color and \
-			all_pieces[i+3][j] != null and all_pieces[i+3][j].color == current_color and \
-			all_pieces[i+4][j] != null and all_pieces[i+4][j].color == current_color:
-				
-				var pieces_in_match = [all_pieces[i][j], all_pieces[i+1][j], all_pieces[i+2][j], all_pieces[i+3][j],all_pieces[i+4][j]]
+			   all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
+			   all_pieces[i+2][j] != null and all_pieces[i+2][j].color == current_color and \
+			   all_pieces[i+3][j] != null and all_pieces[i+3][j].color == current_color and \
+			   all_pieces[i+4][j] != null and all_pieces[i+4][j].color == current_color:
+
+				var pieces5 = [all_pieces[i][j], all_pieces[i+1][j], all_pieces[i+2][j], all_pieces[i+3][j], all_pieces[i+4][j]]
 				var piece_to_make_special = all_pieces[i][j]
-				
-				if moved_piece in pieces_in_match:
+				if moved_piece != null and moved_piece in pieces5:
 					piece_to_make_special = moved_piece
-				
+
 				replace_with_special("star", piece_to_make_special)
 				isfiveR = true
-				for piece in pieces_in_match:
-					if piece != piece_to_make_special:
-						piece.matched = true
-						piece.dim()
-			# Combinación de 4
-			elif i <= width - 4 and \
-			all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
-			all_pieces[i+2][j] != null and all_pieces[i+2][j].color == current_color and \
-			all_pieces[i+3][j] != null and all_pieces[i+3][j].color == current_color:
-				
-				var pieces_in_match = [all_pieces[i][j], all_pieces[i+1][j], all_pieces[i+2][j], all_pieces[i+3][j]]
-				var piece_to_make_special = all_pieces[i][j] # Por defecto, la primera
-				
-				if moved_piece in pieces_in_match:
+				for p in pieces5:
+					if p != piece_to_make_special:
+						p.matched = true
+						p.dim()
+				continue
+
+			# 4 normales
+			if i <= width - 4 and \
+			   all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
+			   all_pieces[i+2][j] != null and all_pieces[i+2][j].color == current_color and \
+			   all_pieces[i+3][j] != null and all_pieces[i+3][j].color == current_color:
+
+				var pieces4 = [all_pieces[i][j], all_pieces[i+1][j], all_pieces[i+2][j], all_pieces[i+3][j]]
+				var piece_to_make_special = all_pieces[i][j]
+				if moved_piece != null and moved_piece in pieces4:
 					piece_to_make_special = moved_piece
-				
+
 				if not isfiveR:
 					replace_with_special("row", piece_to_make_special)
-				
-				for piece in pieces_in_match:
-					if piece != piece_to_make_special:
-						piece.matched = true
-						piece.dim()
-				break
-			# Combinación de 3
-			elif i <= width - 3 and \
-			all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
-			all_pieces[i+2][j] != null and all_pieces[i+2][j].color == current_color:
+
+				for p in pieces4:
+					if p != piece_to_make_special:
+						p.matched = true
+						p.dim()
+				continue
+
+			# 4 con 1 rainbow 
+			if i <= width - 4:
+				var segH = [all_pieces[i][j], all_pieces[i+1][j], all_pieces[i+2][j], all_pieces[i+3][j]]
+				var res = _is_rainbow_plus_color(segH) # devuelve [bool, color]
+				if res[0]:
+					var target_color = res[1]
+					_clear_color_on_board(target_color)
+					# marcar y dim la(s) rainbow del segmento
+					for p in segH:
+						if p != null and p.color == "rainbow":
+							p.matched = true
+							p.dim()
+					continue
+
+			# 3 normales
+			if i <= width - 3 and \
+			   all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
+			   all_pieces[i+2][j] != null and all_pieces[i+2][j].color == current_color:
 				all_pieces[i][j].matched = true
 				all_pieces[i][j].dim()
 				all_pieces[i+1][j].matched = true
 				all_pieces[i+1][j].dim()
 				all_pieces[i+2][j].matched = true
 				all_pieces[i+2][j].dim()
-			# Combinación de 5
+
+			# VERTICAL
+			# 5 iguales
 			if j <= height - 5 and \
-			all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
-			all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color and \
-			all_pieces[i][j+3] != null and all_pieces[i][j+3].color == current_color and \
-			all_pieces[i][j+4] != null and all_pieces[i][j+4].color == current_color:
-				
-				var pieces_in_match = [all_pieces[i][j], all_pieces[i][j+1], all_pieces[i][j+2], all_pieces[i][j+3],all_pieces[i][j+4] ]
-				var piece_to_make_special = all_pieces[i][j]
-				
-				if moved_piece in pieces_in_match:
-					piece_to_make_special = moved_piece
-				
-				replace_with_special("star", piece_to_make_special)
+			   all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
+			   all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color and \
+			   all_pieces[i][j+3] != null and all_pieces[i][j+3].color == current_color and \
+			   all_pieces[i][j+4] != null and all_pieces[i][j+4].color == current_color:
+
+				var pieces5v = [all_pieces[i][j], all_pieces[i][j+1], all_pieces[i][j+2], all_pieces[i][j+3], all_pieces[i][j+4]]
+				var piece_to_make_special_v = all_pieces[i][j]
+				if moved_piece != null and moved_piece in pieces5v:
+					piece_to_make_special_v = moved_piece
+
+				replace_with_special("star", piece_to_make_special_v)
 				isfiveC = true
-				for piece in pieces_in_match:
-					if piece != piece_to_make_special:
-						piece.matched = true
-						piece.dim()
-			# Combinación de 4
-			elif j <= height - 4 and \
-			all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
-			all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color and \
-			all_pieces[i][j+3] != null and all_pieces[i][j+3].color == current_color:
-				
-				var pieces_in_match = [all_pieces[i][j], all_pieces[i][j+1], all_pieces[i][j+2], all_pieces[i][j+3]]
-				var piece_to_make_special = all_pieces[i][j]
-				
-				if moved_piece in pieces_in_match:
-					piece_to_make_special = moved_piece
-				
+				for p in pieces5v:
+					if p != piece_to_make_special_v:
+						p.matched = true
+						p.dim()
+				continue
+
+			# 4 normales
+			if j <= height - 4 and \
+			   all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
+			   all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color and \
+			   all_pieces[i][j+3] != null and all_pieces[i][j+3].color == current_color:
+
+				var pieces4v = [all_pieces[i][j], all_pieces[i][j+1], all_pieces[i][j+2], all_pieces[i][j+3]]
+				var piece_to_make_special_v = all_pieces[i][j]
+				if moved_piece != null and moved_piece in pieces4v:
+					piece_to_make_special_v = moved_piece
+
 				if not isfiveC:
-					replace_with_special("column", piece_to_make_special)
-				
-				for piece in pieces_in_match:
-					if piece != piece_to_make_special:
-						piece.matched = true
-						piece.dim()
-						
-				break
-			elif j <= height - 3 and \
-			all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
-			all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color:
+					replace_with_special("column", piece_to_make_special_v)
+
+				for p in pieces4v:
+					if p != piece_to_make_special_v:
+						p.matched = true
+						p.dim()
+				continue
+
+			# 4 con 1 rainbow
+			if j <= height - 4:
+				var segV = [all_pieces[i][j], all_pieces[i][j+1], all_pieces[i][j+2], all_pieces[i][j+3]]
+				var resV = _is_rainbow_plus_color(segV)
+				if resV[0]:
+					var target_colorV = resV[1]
+					_clear_color_on_board(target_colorV)
+					for p in segV:
+						if p != null and p.color == "rainbow":
+							p.matched = true
+							p.dim()
+					continue
+
+			# 3 normales
+			if j <= height - 3 and \
+			   all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
+			   all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color:
 				all_pieces[i][j].matched = true
 				all_pieces[i][j].dim()
 				all_pieces[i][j+1].matched = true
 				all_pieces[i][j+1].dim()
 				all_pieces[i][j+2].matched = true
 				all_pieces[i][j+2].dim()
-				
+	
 	get_parent().get_node("destroy_timer").start()
 
 func replace_with_special(kind: String, piece_to_replace: Node2D):
@@ -365,21 +410,22 @@ func collapse_columns():
 	get_parent().get_node("refill_timer").start()
 
 func refill_columns():
-	
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] == null:
 				# random number
-				var rand = randi_range(0, possible_pieces.size() - 1)
+				var rand_index = randi_range(0, piece_prob_array.size() - 1)
+				var rand_piece_index = piece_prob_array[rand_index]
 				# instance 
-				var piece = possible_pieces[rand].instantiate()
+				var piece = possible_pieces[rand_piece_index].instantiate()
 				# repeat until no matches
 				var max_loops = 100
 				var loops = 0
 				while (match_at(i, j, piece.color) and loops < max_loops):
-					rand = randi_range(0, possible_pieces.size() - 1)
+					rand_index = randi_range(0, piece_prob_array.size() - 1)
+					rand_piece_index = piece_prob_array[rand_index]
 					loops += 1
-					piece = possible_pieces[rand].instantiate()
+					piece = possible_pieces[rand_piece_index].instantiate()
 				add_child(piece)
 				piece.position = grid_to_pixel(i, j - y_offset)
 				piece.move(grid_to_pixel(i, j))
@@ -398,6 +444,32 @@ func check_after_refill():
 	state = MOVE
 	
 	move_checked = false
+
+func _is_rainbow_plus_color(pieces: Array) -> Array:
+	var rainbow_count = 0
+	var color = null
+	for p in pieces:
+		if p == null:
+			return [false, null]
+		if p.color == "rainbow":
+			rainbow_count += 1
+		else:
+			if color == null:
+				color = p.color
+			elif p.color != color:
+				return [false, null]
+	if rainbow_count == 1 and color != null:
+		return [true, color]
+	return [false, null]
+
+# Marca como matched + dim todas las piezas del color objetivo en TODO el tablero.
+func _clear_color_on_board(target_color: String) -> void:
+	for ii in width:
+		for jj in height:
+			var q = all_pieces[ii][jj]
+			if q != null and q.color == target_color:
+				q.matched = true
+				q.dim_2()
 
 func _on_destroy_timer_timeout():
 	print("destroy")

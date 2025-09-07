@@ -21,5 +21,4 @@ func dim_2():
 	tween.tween_property(self, "modulate:a", 0.0, 0.4)
 	
 	await tween.finished
-	
 	queue_free()
