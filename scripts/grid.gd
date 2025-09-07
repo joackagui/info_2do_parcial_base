@@ -306,10 +306,26 @@ func destroy_matched():
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] != null and all_pieces[i][j].matched:
-				if all_pieces[i][j].special_type == "row":
+				if all_pieces[i][j].special_type == "star":
+					for x in width:
+						if all_pieces[x][j] != null:
+							all_pieces[x][j].dim()
+							
+							all_pieces[x][j].queue_free()
+							all_pieces[x][j] = null
+							destroyed_count += 1
+					for y in height:
+						if all_pieces[i][y] != null:
+							all_pieces[i][y].dim()
+							all_pieces[i][y].queue_free()
+							all_pieces[i][y] = null
+							destroyed_count += 1
+				elif all_pieces[i][j].special_type == "row":
 					# destruir toda la fila j
 					for x in width:
 						if all_pieces[x][j] != null:
+							all_pieces[x][j].dim()
+							
 							all_pieces[x][j].queue_free()
 							all_pieces[x][j] = null
 							destroyed_count += 1
@@ -317,15 +333,16 @@ func destroy_matched():
 					# destruir toda la columna i
 					for y in height:
 						if all_pieces[i][y] != null:
+							all_pieces[i][y].dim()
 							all_pieces[i][y].queue_free()
 							all_pieces[i][y] = null
 							destroyed_count += 1
 				else:
 					# pieza normal
+					all_pieces[i][j].dim()
 					all_pieces[i][j].queue_free()
 					all_pieces[i][j] = null
 					destroyed_count += 1
-
 				was_matched = true
 				
 	if destroyed_count > 0:

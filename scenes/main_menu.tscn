@@ -79,6 +79,7 @@ pivot_offset = Vector2(287, 45)
 texture_normal = ExtResource("3_8ln24")
 
 [node name="exit_label" type="Label" parent="exit_button"]
+layout_mode = 0
 offset_left = 6.0
 offset_top = 2.0
 offset_right = 573.0
