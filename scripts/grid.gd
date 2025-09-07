@@ -185,6 +185,7 @@ func find_matches(moved_piece: Node2D = null):
 					if piece != piece_to_make_special:
 						piece.matched = true
 						piece.dim()
+				break
 			# Combinación de 4
 			elif i <= width - 4 and \
 			all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
@@ -203,6 +204,7 @@ func find_matches(moved_piece: Node2D = null):
 					if piece != piece_to_make_special:
 						piece.matched = true
 						piece.dim()
+				break
 			# Combinación de 3
 			elif i <= width - 3 and \
 			all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
@@ -232,11 +234,7 @@ func find_matches(moved_piece: Node2D = null):
 					if piece != piece_to_make_special:
 						piece.matched = true
 						piece.dim()
-						
-				#for k in range(5):
-					#all_pieces[i][j+k].matched = true
-					#all_pieces[i][j+k].dim()
-					
+				break
 			# Combinación de 4
 			elif j <= height - 4 and \
 			all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
@@ -256,6 +254,7 @@ func find_matches(moved_piece: Node2D = null):
 						piece.matched = true
 						piece.dim()
 						
+				break
 			elif j <= height - 3 and \
 			all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
 			all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color:
@@ -306,10 +305,26 @@ func destroy_matched():
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] != null and all_pieces[i][j].matched:
-				if all_pieces[i][j].special_type == "row":
+				if all_pieces[i][j].special_type == "star":
+					for x in width:
+						if all_pieces[x][j] != null:
+							all_pieces[x][j].dim()
+							
+							all_pieces[x][j].queue_free()
+							all_pieces[x][j] = null
+							destroyed_count += 1
+					for y in height:
+						if all_pieces[i][y] != null:
+							all_pieces[i][y].dim()
+							all_pieces[i][y].queue_free()
+							all_pieces[i][y] = null
+							destroyed_count += 1
+				elif all_pieces[i][j].special_type == "row":
 					# destruir toda la fila j
 					for x in width:
 						if all_pieces[x][j] != null:
+							all_pieces[x][j].dim()
+							
 							all_pieces[x][j].queue_free()
 							all_pieces[x][j] = null
 							destroyed_count += 1
@@ -317,15 +332,16 @@ func destroy_matched():
 					# destruir toda la columna i
 					for y in height:
 						if all_pieces[i][y] != null:
+							all_pieces[i][y].dim()
 							all_pieces[i][y].queue_free()
 							all_pieces[i][y] = null
 							destroyed_count += 1
 				else:
 					# pieza normal
+					all_pieces[i][j].dim()
 					all_pieces[i][j].queue_free()
 					all_pieces[i][j] = null
 					destroyed_count += 1
-
 				was_matched = true
 				
 	if destroyed_count > 0:

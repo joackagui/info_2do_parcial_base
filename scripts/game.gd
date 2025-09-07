@@ -34,5 +34,6 @@ func _check_end_game():
 
 func _game_over():
 	game_timer.stop()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	grid.state = grid.WAIT
 	print("GAME OVER")
