@@ -49,11 +49,10 @@ func _ready():
 	state = MOVE
 	randomize()
 	all_pieces = make_2d_array()
-	for i in range(6): # del 0 al 5
-		for j in range(30):
+	for i in range(6):
+		for j in range(20):
 			piece_prob_array.append(i)
-			
-	# Agrega el índice de la rainbow_piece solo 1 vez
+	
 	piece_prob_array.append(6)
 	spawn_pieces()
 
