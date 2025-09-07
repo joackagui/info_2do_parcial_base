@@ -5,12 +5,25 @@ extends Node2D
 @onready var game_timer = $game_timer
 
 var level: int = 1
+var time_mode: bool = true
 
 func _ready():
-	grid.add_score.connect(on_add_score) 
-	grid.reduce_counter.connect(on_reduce_counter)
+	level = GameManager.level
+	time_mode = GameManager.time_mode
 
-	game_timer.start()
+	grid.add_score.connect(on_add_score)
+
+	if time_mode:
+		var level_time = 180 / level
+		top_ui.set_timer(level_time)
+		game_timer.start()
+		top_ui.hide_counter()
+	else:
+		grid.reduce_counter.connect(on_reduce_counter)
+		var level_counter = 120 / level
+		top_ui.set_counter(level_counter)
+		top_ui.hide_timer()
+		game_timer.stop()
 
 func on_add_score(points: int):
 	top_ui.current_score += points
@@ -37,3 +50,6 @@ func _game_over():
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	grid.state = grid.WAIT
 	print("GAME OVER")
+
+func _game_won():
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

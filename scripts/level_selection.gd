@@ -10,39 +10,48 @@ extends Node2D
 @onready var mode_button = $mode_button
 @onready var mode_label = $mode_button/mode_label
 
-@export var time: bool = false
+@export var time_mode: bool = false
 @export var level_time: int = 1
 @export var level_counter: bool = 1
 
-func _on_return_pressed() -> void:
+func _ready() -> void:
+	update_mode()
+	
+func _on_retun_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
-func _on_retun_button_pressed() -> void:
-	_on_return_pressed()
-
 func _on_button_level_1_pressed() -> void:
-	pass # Replace with function body.
+	change_to_game(1)
 
 func _on_button_level_2_pressed() -> void:
-	pass # Replace with function body.
+	change_to_game(2)
 
 func _on_button_level_3_pressed() -> void:
-	pass # Replace with function body.
+	change_to_game(3)
 
 func _on_button_level_4_pressed() -> void:
-	pass # Replace with function body.
+	change_to_game(4)
 
 func _on_button_level_5_pressed() -> void:
-	pass # Replace with function body.
+	change_to_game(5)
 
 func _on_button_level_6_pressed() -> void:
-	pass # Replace with function body.
+	change_to_game(6)
 	
 func _on_mode_button_pressed() -> void:
-	pass # Replace with function body.
+	time_mode = !time_mode
+	update_mode()
+	
+func change_to_game(game_level: int):
+	GameManager.level = game_level
+	GameManager.time_mode = time_mode
+	get_tree().change_scene_to_file("res://scenes/game.tscn")
 
-
-
+func update_mode():
+	if time_mode:
+		mode_label.text = "Mode: Time"
+	else:
+		mode_label.text = "Mode: Attempts"
 
 # Hovering	
 func _on_retun_button_mouse_entered() -> void:
@@ -89,7 +98,6 @@ func _on_button_level_6_mouse_exited() -> void:
 
 func _on_mode_button_mouse_entered() -> void:
 	mode_button.scale = Vector2(1, 1)	
-
 
 func _on_mode_button_mouse_exited() -> void:
 	mode_button.scale = Vector2(0.8, 0.8)	
