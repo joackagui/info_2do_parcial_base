@@ -160,6 +160,8 @@ func _process(_delta):
 		touch_input()
 
 func find_matches(moved_piece: Node2D = null):
+	var isfiveR = false
+	var isfiveC = false
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] == null:
@@ -180,12 +182,11 @@ func find_matches(moved_piece: Node2D = null):
 					piece_to_make_special = moved_piece
 				
 				replace_with_special("star", piece_to_make_special)
-				
+				isfiveR = true
 				for piece in pieces_in_match:
 					if piece != piece_to_make_special:
 						piece.matched = true
 						piece.dim()
-				break
 			# Combinación de 4
 			elif i <= width - 4 and \
 			all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
@@ -198,7 +199,8 @@ func find_matches(moved_piece: Node2D = null):
 				if moved_piece in pieces_in_match:
 					piece_to_make_special = moved_piece
 				
-				replace_with_special("row", piece_to_make_special)
+				if not isfiveR:
+					replace_with_special("row", piece_to_make_special)
 				
 				for piece in pieces_in_match:
 					if piece != piece_to_make_special:
@@ -229,12 +231,11 @@ func find_matches(moved_piece: Node2D = null):
 					piece_to_make_special = moved_piece
 				
 				replace_with_special("star", piece_to_make_special)
-				
+				isfiveC = true
 				for piece in pieces_in_match:
 					if piece != piece_to_make_special:
 						piece.matched = true
 						piece.dim()
-				break
 			# Combinación de 4
 			elif j <= height - 4 and \
 			all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
@@ -247,7 +248,8 @@ func find_matches(moved_piece: Node2D = null):
 				if moved_piece in pieces_in_match:
 					piece_to_make_special = moved_piece
 				
-				replace_with_special("column", piece_to_make_special)
+				if not isfiveC:
+					replace_with_special("column", piece_to_make_special)
 				
 				for piece in pieces_in_match:
 					if piece != piece_to_make_special:
