@@ -1,18 +1,78 @@
 extends Node2D
 
-@onready var return_button = $retun_button
-
-func _ready() -> void:
-	return_button.connect("pressed", _on_return_pressed)
-	
-	return_button.connect("mouse_entered", _on_button_mouse_entered.bind(return_button))
-	return_button.connect("mouse_exited", _on_button_mouse_exited.bind(return_button))
+@onready var return_button = $return_button
+@onready var level1_button = $button_level1
+@onready var level2_button = $button_level2
+@onready var level3_button = $button_level3
+@onready var level4_button = $button_level4
+@onready var level5_button = $button_level5
+@onready var level6_button = $button_level6
 
 func _on_return_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
-func _on_button_mouse_entered(button: TextureButton) -> void:
-	button.scale = Vector2(1.2, 1.2)
+func _on_retun_button_pressed() -> void:
+	_on_return_pressed()
 
-func _on_button_mouse_exited(button: TextureButton) -> void:
-	button.scale = Vector2(1, 1)
+func _on_button_level_1_pressed() -> void:
+	pass # Replace with function body.
+
+func _on_button_level_2_pressed() -> void:
+	pass # Replace with function body.
+
+func _on_button_level_3_pressed() -> void:
+	pass # Replace with function body.
+
+func _on_button_level_4_pressed() -> void:
+	pass # Replace with function body.
+
+func _on_button_level_5_pressed() -> void:
+	pass # Replace with function body.
+
+func _on_button_level_6_pressed() -> void:
+	pass # Replace with function body.
+	
+	
+	
+	
+func _on_retun_button_mouse_entered() -> void:
+	return_button.scale = Vector2(1, 1)
+
+func _on_retun_button_mouse_exited() -> void:
+	return_button.scale = Vector2(0.8, 0.8)
+
+func _on_button_level_1_mouse_entered() -> void:
+	level1_button.scale = Vector2(0.2, 0.2)
+
+func _on_button_level_1_mouse_exited() -> void:
+	level1_button.scale = Vector2(0.1, 0.1)
+	
+func _on_button_level_2_mouse_entered() -> void:
+	level2_button.scale = Vector2(0.2, 0.2)
+	
+func _on_button_level_2_mouse_exited() -> void:
+	level2_button.scale = Vector2(0.1, 0.1)
+		
+func _on_button_level_3_mouse_entered() -> void:
+	level3_button.scale = Vector2(0.2, 0.2)
+	
+func _on_button_level_3_mouse_exited() -> void:
+	level3_button.scale = Vector2(0.1, 0.1)
+	
+func _on_button_level_4_mouse_entered() -> void:
+	level4_button.scale = Vector2(0.2, 0.2)	
+	
+func _on_button_level_4_mouse_exited() -> void:
+	level4_button.scale = Vector2(0.1, 0.1)	
+	
+func _on_button_level_5_mouse_entered() -> void:
+	level5_button.scale = Vector2(0.2, 0.2)
+		
+func _on_button_level_5_mouse_exited() -> void:
+	level5_button.scale = Vector2(0.1, 0.1)	
+
+func _on_button_level_6_mouse_entered() -> void:
+	level6_button.scale = Vector2(0.2, 0.2)
+		
+func _on_button_level_6_mouse_exited() -> void:
+	level6_button.scale = Vector2(0.1, 0.1)	
