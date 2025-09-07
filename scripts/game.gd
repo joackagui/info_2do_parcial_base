@@ -4,6 +4,8 @@ extends Node2D
 @onready var top_ui = $top_ui
 @onready var game_timer = $game_timer
 
+var level: int = 1
+
 func _ready():
 	grid.add_score.connect(on_add_score) 
 	grid.reduce_counter.connect(on_reduce_counter)

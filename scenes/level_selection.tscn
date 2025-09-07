@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcxtmhlbe6rvh"]
+
+[ext_resource type="Script" uid="uid://c1i2nsu8rrbvc" path="res://scripts/level_selection.gd" id="1_tuscg"]
+[ext_resource type="Texture2D" uid="uid://brp4euwugc18f" path="res://assets/background.png" id="2_42rqe"]
+[ext_resource type="FontFile" uid="uid://b25431rxog83j" path="res://assets/fonts/Kenney Blocks.ttf" id="3_rcujv"]
+[ext_resource type="Texture2D" uid="uid://cdunkljd6up72" path="res://assets/bottom_ui.png" id="4_efsdc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wu84c"]
+font = ExtResource("3_rcujv")
+font_size = 128
+outline_size = 64
+outline_color = Color(0.0784314, 0, 0.615686, 1)
+shadow_size = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ln24"]
+font = ExtResource("3_rcujv")
+font_size = 48
+font_color = Color(0.0784314, 0, 0.615686, 1)
+outline_size = 32
+outline_color = Color(0.533333, 1, 1, 1)
+
+[node name="Levels" type="Node2D"]
+script = ExtResource("1_tuscg")
+
+[node name="background" type="TextureRect" parent="."]
+offset_right = 576.0
+offset_bottom = 1024.0
+texture = ExtResource("2_42rqe")
+
+[node name="title_label" type="Label" parent="."]
+offset_left = 6.0
+offset_top = 89.0
+offset_right = 573.0
+offset_bottom = 476.0
+text = "levels"
+label_settings = SubResource("LabelSettings_wu84c")
+horizontal_alignment = 1
+
+[node name="retun_button" type="TextureButton" parent="."]
+offset_top = 853.0
+offset_right = 576.0
+offset_bottom = 945.0
+pivot_offset = Vector2(287, 45)
+texture_normal = ExtResource("4_efsdc")
+
+[node name="return_label" type="Label" parent="retun_button"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 2.0
+offset_right = 573.0
+offset_bottom = 92.0
+text = "Return"
+label_settings = SubResource("LabelSettings_8ln24")
+horizontal_alignment = 1
