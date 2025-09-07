@@ -36,11 +36,9 @@ var first_touch = Vector2.ZERO
 var final_touch = Vector2.ZERO
 var is_controlling = false
 
-# scoring variables and signals
-
-
-# counter variables and signals
-
+# signals
+signal add_score(points: int)
+signal reduce_counter()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -157,7 +155,7 @@ func touch_difference(grid_1, grid_2):
 		elif difference.y < 0:
 			swap_pieces(grid_1.x, grid_1.y, Vector2(0, -1))
 
-func _process(delta):
+func _process(_delta):
 	if state == MOVE:
 		touch_input()
 
@@ -304,6 +302,7 @@ func replace_with_special(kind: String, piece_to_replace: Node2D):
 
 func destroy_matched():
 	var was_matched = false
+	var destroyed_count = 0
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] != null and all_pieces[i][j].matched:
@@ -313,21 +312,29 @@ func destroy_matched():
 						if all_pieces[x][j] != null:
 							all_pieces[x][j].queue_free()
 							all_pieces[x][j] = null
+							destroyed_count += 1
 				elif all_pieces[i][j].special_type == "column":
 					# destruir toda la columna i
 					for y in height:
 						if all_pieces[i][y] != null:
 							all_pieces[i][y].queue_free()
 							all_pieces[i][y] = null
+							destroyed_count += 1
 				else:
 					# pieza normal
 					all_pieces[i][j].queue_free()
 					all_pieces[i][j] = null
+					destroyed_count += 1
 
 				was_matched = true
 				
+	if destroyed_count > 0:
+		add_score.emit(destroyed_count * 50)
+				
 	move_checked = true
 	if was_matched:
+		reduce_counter.emit()
+
 		get_parent().get_node("collapse_timer").start()
 	else:
 		swap_back()

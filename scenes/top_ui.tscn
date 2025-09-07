@@ -43,6 +43,14 @@ text = "000"
 label_settings = SubResource("LabelSettings_yrpvj")
 horizontal_alignment = 1
 
+[node name="timer_label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "000"
+label_settings = SubResource("LabelSettings_yrpvj")
+horizontal_alignment = 1
+
 [node name="counter_label" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
