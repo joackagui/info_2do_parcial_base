@@ -161,50 +161,170 @@ func _process(delta):
 	if state == MOVE:
 		touch_input()
 
-func find_matches():
+func find_matches(moved_piece: Node2D = null):
 	for i in width:
 		for j in height:
-			if all_pieces[i][j] != null:
-				var current_color = all_pieces[i][j].color
-				# detect horizontal matches
-				if (
-					i > 0 and i < width -1 
-					and 
-					all_pieces[i - 1][j] != null and all_pieces[i + 1][j]
-					and 
-					all_pieces[i - 1][j].color == current_color and all_pieces[i + 1][j].color == current_color
-				):
-					all_pieces[i - 1][j].matched = true
-					all_pieces[i - 1][j].dim()
-					all_pieces[i][j].matched = true
-					all_pieces[i][j].dim()
-					all_pieces[i + 1][j].matched = true
-					all_pieces[i + 1][j].dim()
-				# detect vertical matches
-				if (
-					j > 0 and j < height -1 
-					and 
-					all_pieces[i][j - 1] != null and all_pieces[i][j + 1]
-					and 
-					all_pieces[i][j - 1].color == current_color and all_pieces[i][j + 1].color == current_color
-				):
-					all_pieces[i][j - 1].matched = true
-					all_pieces[i][j - 1].dim()
-					all_pieces[i][j].matched = true
-					all_pieces[i][j].dim()
-					all_pieces[i][j + 1].matched = true
-					all_pieces[i][j + 1].dim()
+			if all_pieces[i][j] == null:
+				continue
+				
+			var current_color = all_pieces[i][j].color
+			# Combinación de 5
+			if i <= width - 5 and \
+			all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
+			all_pieces[i+2][j] != null and all_pieces[i+2][j].color == current_color and \
+			all_pieces[i+3][j] != null and all_pieces[i+3][j].color == current_color and \
+			all_pieces[i+4][j] != null and all_pieces[i+4][j].color == current_color:
+				
+				var pieces_in_match = [all_pieces[i][j], all_pieces[i+1][j], all_pieces[i+2][j], all_pieces[i+3][j],all_pieces[i+4][j]]
+				var piece_to_make_special = all_pieces[i][j]
+				
+				if moved_piece in pieces_in_match:
+					piece_to_make_special = moved_piece
+				
+				replace_with_special("star", piece_to_make_special)
+				
+				for piece in pieces_in_match:
+					if piece != piece_to_make_special:
+						piece.matched = true
+						piece.dim()
+			# Combinación de 4
+			elif i <= width - 4 and \
+			all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
+			all_pieces[i+2][j] != null and all_pieces[i+2][j].color == current_color and \
+			all_pieces[i+3][j] != null and all_pieces[i+3][j].color == current_color:
+				
+				var pieces_in_match = [all_pieces[i][j], all_pieces[i+1][j], all_pieces[i+2][j], all_pieces[i+3][j]]
+				var piece_to_make_special = all_pieces[i][j] # Por defecto, la primera
+				
+				if moved_piece in pieces_in_match:
+					piece_to_make_special = moved_piece
+				
+				replace_with_special("row", piece_to_make_special)
+				
+				for piece in pieces_in_match:
+					if piece != piece_to_make_special:
+						piece.matched = true
+						piece.dim()
+			# Combinación de 3
+			elif i <= width - 3 and \
+			all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
+			all_pieces[i+2][j] != null and all_pieces[i+2][j].color == current_color:
+				all_pieces[i][j].matched = true
+				all_pieces[i][j].dim()
+				all_pieces[i+1][j].matched = true
+				all_pieces[i+1][j].dim()
+				all_pieces[i+2][j].matched = true
+				all_pieces[i+2][j].dim()
+			# Combinación de 5
+			if j <= height - 5 and \
+			all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
+			all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color and \
+			all_pieces[i][j+3] != null and all_pieces[i][j+3].color == current_color and \
+			all_pieces[i][j+4] != null and all_pieces[i][j+4].color == current_color:
+				
+				var pieces_in_match = [all_pieces[i][j], all_pieces[i][j+1], all_pieces[i][j+2], all_pieces[i][j+3],all_pieces[i][j+4] ]
+				var piece_to_make_special = all_pieces[i][j]
+				
+				if moved_piece in pieces_in_match:
+					piece_to_make_special = moved_piece
+				
+				replace_with_special("star", piece_to_make_special)
+				
+				for piece in pieces_in_match:
+					if piece != piece_to_make_special:
+						piece.matched = true
+						piece.dim()
+						
+				#for k in range(5):
+					#all_pieces[i][j+k].matched = true
+					#all_pieces[i][j+k].dim()
 					
+			# Combinación de 4
+			elif j <= height - 4 and \
+			all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
+			all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color and \
+			all_pieces[i][j+3] != null and all_pieces[i][j+3].color == current_color:
+				
+				var pieces_in_match = [all_pieces[i][j], all_pieces[i][j+1], all_pieces[i][j+2], all_pieces[i][j+3]]
+				var piece_to_make_special = all_pieces[i][j]
+				
+				if moved_piece in pieces_in_match:
+					piece_to_make_special = moved_piece
+				
+				replace_with_special("column", piece_to_make_special)
+				
+				for piece in pieces_in_match:
+					if piece != piece_to_make_special:
+						piece.matched = true
+						piece.dim()
+						
+			elif j <= height - 3 and \
+			all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
+			all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color:
+				all_pieces[i][j].matched = true
+				all_pieces[i][j].dim()
+				all_pieces[i][j+1].matched = true
+				all_pieces[i][j+1].dim()
+				all_pieces[i][j+2].matched = true
+				all_pieces[i][j+2].dim()
+				
 	get_parent().get_node("destroy_timer").start()
+
+func replace_with_special(kind: String, piece_to_replace: Node2D):
+	if piece_to_replace == null:
+		return
+
+	var color = piece_to_replace.color
+	var grid_pos = pixel_to_grid(piece_to_replace.position.x, piece_to_replace.position.y)
 	
+	if grid_pos.x < 0 or grid_pos.x >= width or grid_pos.y < 0 or grid_pos.y >= height:
+		print("Error: Posición de pieza especial fuera de la grilla.")
+		return
+
+	var scene_path = "res://scenes/%s_piece_%s.tscn" % [color, kind]
+	var special_piece_scene = load(scene_path)
+	
+	if special_piece_scene == null:
+		print("Error: No se pudo cargar la escena de la pieza especial: ", scene_path)
+		return
+
+	# Instanciar la pieza especial
+	var special_piece = special_piece_scene.instantiate()
+	add_child(special_piece)
+	
+	# Colocarla en la posición visual correcta
+	special_piece.position = piece_to_replace.position
+	special_piece.special_type = kind
+	
+	# Actualizar el array lógico
+	all_pieces[grid_pos.x][grid_pos.y] = special_piece
+	
+	# Eliminar la pieza original
+	piece_to_replace.queue_free()
+
 func destroy_matched():
 	var was_matched = false
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] != null and all_pieces[i][j].matched:
+				if all_pieces[i][j].special_type == "row":
+					# destruir toda la fila j
+					for x in width:
+						if all_pieces[x][j] != null:
+							all_pieces[x][j].queue_free()
+							all_pieces[x][j] = null
+				elif all_pieces[i][j].special_type == "column":
+					# destruir toda la columna i
+					for y in height:
+						if all_pieces[i][y] != null:
+							all_pieces[i][y].queue_free()
+							all_pieces[i][y] = null
+				else:
+					# pieza normal
+					all_pieces[i][j].queue_free()
+					all_pieces[i][j] = null
+
 				was_matched = true
-				all_pieces[i][j].queue_free()
-				all_pieces[i][j] = null
 				
 	move_checked = true
 	if was_matched:
