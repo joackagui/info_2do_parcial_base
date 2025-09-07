@@ -60,11 +60,13 @@ label_settings = SubResource("LabelSettings_8ln24")
 horizontal_alignment = 1
 
 [node name="button_level1" type="TextureButton" parent="."]
-offset_left = -3.0
-offset_top = 379.0
-offset_right = 1197.0
-offset_bottom = 1579.0
+clip_contents = true
+offset_left = -509.0
+offset_top = -132.0
+offset_right = 691.0
+offset_bottom = 1068.0
 scale = Vector2(0.15, 0.15)
+pivot_offset = Vector2(600, 600)
 texture_normal = ExtResource("5_42rqe")
 
 [node name="label_level1" type="Label" parent="button_level1"]
@@ -77,11 +79,13 @@ text = "1"
 label_settings = SubResource("LabelSettings_rcujv")
 
 [node name="button_level2" type="TextureButton" parent="."]
-offset_left = 198.0
-offset_top = 379.0
-offset_right = 1398.0
-offset_bottom = 1579.0
+clip_contents = true
+offset_left = -313.0
+offset_top = -131.0
+offset_right = 887.0
+offset_bottom = 1069.0
 scale = Vector2(0.15, 0.15)
+pivot_offset = Vector2(600, 600)
 texture_normal = ExtResource("5_42rqe")
 
 [node name="label_level2" type="Label" parent="button_level2"]
@@ -94,11 +98,13 @@ text = "2"
 label_settings = SubResource("LabelSettings_rcujv")
 
 [node name="button_level3" type="TextureButton" parent="."]
-offset_left = 395.0
-offset_top = 379.0
-offset_right = 1595.0
-offset_bottom = 1579.0
+clip_contents = true
+offset_left = -116.0
+offset_top = -131.0
+offset_right = 1084.0
+offset_bottom = 1069.0
 scale = Vector2(0.15, 0.15)
+pivot_offset = Vector2(600, 600)
 texture_normal = ExtResource("5_42rqe")
 
 [node name="label_level3" type="Label" parent="button_level3"]
@@ -111,11 +117,13 @@ text = "3"
 label_settings = SubResource("LabelSettings_rcujv")
 
 [node name="button_level4" type="TextureButton" parent="."]
-offset_left = -3.0
-offset_top = 546.0
-offset_right = 1197.0
-offset_bottom = 1746.0
+clip_contents = true
+offset_left = -507.0
+offset_top = 38.0
+offset_right = 693.0
+offset_bottom = 1238.0
 scale = Vector2(0.15, 0.15)
+pivot_offset = Vector2(600, 600)
 texture_normal = ExtResource("5_42rqe")
 
 [node name="label_level4" type="Label" parent="button_level4"]
@@ -128,11 +136,12 @@ text = "4"
 label_settings = SubResource("LabelSettings_rcujv")
 
 [node name="button_level5" type="TextureButton" parent="."]
-offset_left = 198.0
-offset_top = 546.0
-offset_right = 1398.0
-offset_bottom = 1746.0
+offset_left = -310.0
+offset_top = 37.0001
+offset_right = 890.0
+offset_bottom = 1237.0
 scale = Vector2(0.15, 0.15)
+pivot_offset = Vector2(600, 600)
 texture_normal = ExtResource("5_42rqe")
 
 [node name="label_level5" type="Label" parent="button_level5"]
@@ -145,11 +154,12 @@ text = "5"
 label_settings = SubResource("LabelSettings_rcujv")
 
 [node name="button_level6" type="TextureButton" parent="."]
-offset_left = 395.0
-offset_top = 546.0
-offset_right = 1595.0
-offset_bottom = 1746.0
+offset_left = -115.0
+offset_top = 36.0
+offset_right = 1085.0
+offset_bottom = 1236.0
 scale = Vector2(0.15, 0.15)
+pivot_offset = Vector2(600, 600)
 texture_normal = ExtResource("5_42rqe")
 
 [node name="label_level6" type="Label" parent="button_level6"]
@@ -160,6 +170,24 @@ offset_right = 763.0
 offset_bottom = 846.0
 text = "6"
 label_settings = SubResource("LabelSettings_rcujv")
+
+[node name="mode_button" type="TextureButton" parent="."]
+offset_top = 288.0
+offset_right = 576.0
+offset_bottom = 380.0
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(287, 45)
+texture_normal = ExtResource("4_efsdc")
+
+[node name="mode_label" type="Label" parent="mode_button"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 2.0
+offset_right = 573.0
+offset_bottom = 92.0
+text = "Mode: Attempts"
+label_settings = SubResource("LabelSettings_8ln24")
+horizontal_alignment = 1
 
 [connection signal="mouse_entered" from="return_button" to="." method="_on_retun_button_mouse_entered"]
 [connection signal="mouse_exited" from="return_button" to="." method="_on_retun_button_mouse_exited"]
@@ -182,3 +210,6 @@ label_settings = SubResource("LabelSettings_rcujv")
 [connection signal="mouse_entered" from="button_level6" to="." method="_on_button_level_6_mouse_entered"]
 [connection signal="mouse_exited" from="button_level6" to="." method="_on_button_level_6_mouse_exited"]
 [connection signal="pressed" from="button_level6" to="." method="_on_button_level_6_pressed"]
+[connection signal="mouse_entered" from="mode_button" to="." method="_on_mode_button_mouse_entered"]
+[connection signal="mouse_exited" from="mode_button" to="." method="_on_mode_button_mouse_exited"]
+[connection signal="pressed" from="mode_button" to="." method="_on_mode_button_pressed"]

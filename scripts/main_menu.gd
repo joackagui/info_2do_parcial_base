@@ -7,7 +7,6 @@ extends Node2D
 var next_level = 1
 
 func _on_next_level_button_pressed() -> void:
-	print("Ir al nivel:", next_level)
 	var game_scene = preload("res://scenes/game.tscn").instantiate()
 	game_scene.level = next_level 
 	get_tree().change_scene_to_file("res://scenes/game.tscn")

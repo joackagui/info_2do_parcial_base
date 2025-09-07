@@ -7,6 +7,12 @@ extends Node2D
 @onready var level4_button = $button_level4
 @onready var level5_button = $button_level5
 @onready var level6_button = $button_level6
+@onready var mode_button = $mode_button
+@onready var mode_label = $mode_button/mode_label
+
+@export var time: bool = false
+@export var level_time: int = 1
+@export var level_counter: bool = 1
 
 func _on_return_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
@@ -32,9 +38,13 @@ func _on_button_level_5_pressed() -> void:
 func _on_button_level_6_pressed() -> void:
 	pass # Replace with function body.
 	
-	
-	
-	
+func _on_mode_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+
+
+# Hovering	
 func _on_retun_button_mouse_entered() -> void:
 	return_button.scale = Vector2(1, 1)
 
@@ -45,34 +55,41 @@ func _on_button_level_1_mouse_entered() -> void:
 	level1_button.scale = Vector2(0.2, 0.2)
 
 func _on_button_level_1_mouse_exited() -> void:
-	level1_button.scale = Vector2(0.1, 0.1)
+	level1_button.scale = Vector2(0.15, 0.15)
 	
 func _on_button_level_2_mouse_entered() -> void:
 	level2_button.scale = Vector2(0.2, 0.2)
 	
 func _on_button_level_2_mouse_exited() -> void:
-	level2_button.scale = Vector2(0.1, 0.1)
+	level2_button.scale = Vector2(0.15, 0.15)
 		
 func _on_button_level_3_mouse_entered() -> void:
 	level3_button.scale = Vector2(0.2, 0.2)
 	
 func _on_button_level_3_mouse_exited() -> void:
-	level3_button.scale = Vector2(0.1, 0.1)
+	level3_button.scale = Vector2(0.15, 0.15)
 	
 func _on_button_level_4_mouse_entered() -> void:
 	level4_button.scale = Vector2(0.2, 0.2)	
 	
 func _on_button_level_4_mouse_exited() -> void:
-	level4_button.scale = Vector2(0.1, 0.1)	
+	level4_button.scale = Vector2(0.15, 0.15)	
 	
 func _on_button_level_5_mouse_entered() -> void:
 	level5_button.scale = Vector2(0.2, 0.2)
 		
 func _on_button_level_5_mouse_exited() -> void:
-	level5_button.scale = Vector2(0.1, 0.1)	
+	level5_button.scale = Vector2(0.15, 0.15)	
 
 func _on_button_level_6_mouse_entered() -> void:
 	level6_button.scale = Vector2(0.2, 0.2)
 		
 func _on_button_level_6_mouse_exited() -> void:
-	level6_button.scale = Vector2(0.1, 0.1)	
+	level6_button.scale = Vector2(0.15, 0.15)	
+
+func _on_mode_button_mouse_entered() -> void:
+	mode_button.scale = Vector2(1, 1)	
+
+
+func _on_mode_button_mouse_exited() -> void:
+	mode_button.scale = Vector2(0.8, 0.8)	
