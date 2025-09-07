@@ -181,7 +181,7 @@ func find_matches(moved_piece: Node2D = null):
 
 			var current_color = all_pieces[i][j].color
 
-			# ===== HORIZONTAL =====
+			# HORIZONTAL
 			# 5 iguales
 			if i <= width - 5 and \
 			   all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
@@ -202,7 +202,7 @@ func find_matches(moved_piece: Node2D = null):
 						p.dim()
 				continue
 
-			# 4 normales (fila)
+			# 4 normales
 			if i <= width - 4 and \
 			   all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
 			   all_pieces[i+2][j] != null and all_pieces[i+2][j].color == current_color and \
@@ -222,7 +222,7 @@ func find_matches(moved_piece: Node2D = null):
 						p.dim()
 				continue
 
-			# 4 con 1 rainbow (comodín) horizontal
+			# 4 con 1 rainbow 
 			if i <= width - 4:
 				var segH = [all_pieces[i][j], all_pieces[i+1][j], all_pieces[i+2][j], all_pieces[i+3][j]]
 				var res = _is_rainbow_plus_color(segH) # devuelve [bool, color]
@@ -236,7 +236,7 @@ func find_matches(moved_piece: Node2D = null):
 							p.dim()
 					continue
 
-			# 3 normales (no hacemos continue para permitir detectar matches verticales también)
+			# 3 normales
 			if i <= width - 3 and \
 			   all_pieces[i+1][j] != null and all_pieces[i+1][j].color == current_color and \
 			   all_pieces[i+2][j] != null and all_pieces[i+2][j].color == current_color:
@@ -247,7 +247,7 @@ func find_matches(moved_piece: Node2D = null):
 				all_pieces[i+2][j].matched = true
 				all_pieces[i+2][j].dim()
 
-			# ===== VERTICAL =====
+			# VERTICAL
 			# 5 iguales
 			if j <= height - 5 and \
 			   all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
@@ -268,7 +268,7 @@ func find_matches(moved_piece: Node2D = null):
 						p.dim()
 				continue
 
-			# 4 normales (columna)
+			# 4 normales
 			if j <= height - 4 and \
 			   all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
 			   all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color and \
@@ -288,7 +288,7 @@ func find_matches(moved_piece: Node2D = null):
 						p.dim()
 				continue
 
-			# 4 con 1 rainbow vertical
+			# 4 con 1 rainbow
 			if j <= height - 4:
 				var segV = [all_pieces[i][j], all_pieces[i][j+1], all_pieces[i][j+2], all_pieces[i][j+3]]
 				var resV = _is_rainbow_plus_color(segV)
@@ -301,7 +301,7 @@ func find_matches(moved_piece: Node2D = null):
 							p.dim()
 					continue
 
-			# 3 normales vertical
+			# 3 normales
 			if j <= height - 3 and \
 			   all_pieces[i][j+1] != null and all_pieces[i][j+1].color == current_color and \
 			   all_pieces[i][j+2] != null and all_pieces[i][j+2].color == current_color:
@@ -311,8 +311,7 @@ func find_matches(moved_piece: Node2D = null):
 				all_pieces[i][j+1].dim()
 				all_pieces[i][j+2].matched = true
 				all_pieces[i][j+2].dim()
-
-	# al terminar todo el scan, lanzamos destrucción
+	
 	get_parent().get_node("destroy_timer").start()
 
 func replace_with_special(kind: String, piece_to_replace: Node2D):
