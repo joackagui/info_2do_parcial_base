@@ -13,3 +13,13 @@ func move(target):
 
 func dim():
 	$Sprite2D.modulate = Color(1, 1, 1, 0.5)
+
+func dim_2():
+	$Sprite2D.modulate = Color(1, 1, 1, 0.5)
+	
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 0.4)
+	
+	await tween.finished
+	
+	queue_free()
