@@ -17,7 +17,7 @@ func _ready():
 	goal = GameManager.goal
 	grid.add_score.connect(on_add_score)
 	
-	var level_goal =  + 1000 * level
+	var level_goal = 5000 + 1000 * level
 	goal = level_goal
 	top_ui.set_goal(level_goal)
 	
