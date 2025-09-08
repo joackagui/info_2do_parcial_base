@@ -53,6 +53,7 @@ func update_mode():
 		mode_label.text = "Mode: Time"
 	else:
 		mode_label.text = "Mode: Attempts"
+	
 	if GameManager.level1_passed:
 		level1_button.modulate = Color(0.7, 0, 0, 1)
 	if GameManager.level2_passed:
@@ -63,7 +64,7 @@ func update_mode():
 		level4_button.modulate = Color(0.7, 0, 0, 1)
 	if GameManager.level5_passed:
 		level5_button.modulate = Color(0.7, 0, 0, 1)
-	if GameManager.level5_passed:
+	if GameManager.level6_passed:
 		level6_button.modulate = Color(0.7, 0, 0, 1)
 	if GameManager.level2_blocked:
 		level2_button.modulate = Color(0.5, 0.5, 0.5, 0.5)

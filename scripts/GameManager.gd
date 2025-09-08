@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 1
-var time_mode: bool = true
+var time_mode: bool = false
 var goal: int = 2000
 
 var level1_passed: bool = false

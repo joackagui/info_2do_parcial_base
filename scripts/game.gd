@@ -12,7 +12,6 @@ func _ready():
 	level = GameManager.level
 	time_mode = GameManager.time_mode
 	goal = GameManager.goal
-
 	grid.add_score.connect(on_add_score)
 	
 	var level_goal = 5000 + 2000 * level
@@ -28,6 +27,7 @@ func _ready():
 		var level_counter = 100 - 10 * level
 		top_ui.set_counter(level_counter)
 		game_timer.stop()
+	top_ui.update_labels()
 
 func on_add_score(points: int):
 	top_ui.current_score += points
@@ -44,6 +44,8 @@ func _on_game_timer_timeout():
 
 	if top_ui.current_time <= 0:
 		_game_over()
+	if top_ui.current_score >= goal:
+		_game_won()
 
 func _check_end_game():
 	if top_ui.current_count <= 0:
