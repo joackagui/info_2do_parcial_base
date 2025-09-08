@@ -17,6 +17,7 @@ extends Node2D
 func _ready() -> void:
 	update_mode()
 	
+	
 func _on_retun_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
@@ -52,6 +53,34 @@ func update_mode():
 		mode_label.text = "Mode: Time"
 	else:
 		mode_label.text = "Mode: Attempts"
+	if GameManager.level1_passed:
+		level1_button.modulate = Color(0.7, 0, 0, 1)
+	if GameManager.level2_passed:
+		level2_button.modulate = Color(0.7, 0, 0, 1)
+	if GameManager.level3_passed:
+		level3_button.modulate = Color(0.7, 0, 0, 1)
+	if GameManager.level4_passed:
+		level4_button.modulate = Color(0.7, 0, 0, 1)
+	if GameManager.level5_passed:
+		level5_button.modulate = Color(0.7, 0, 0, 1)
+	if GameManager.level5_passed:
+		level6_button.modulate = Color(0.7, 0, 0, 1)
+	if GameManager.level2_blocked:
+		level2_button.modulate = Color(0.5, 0.5, 0.5, 0.5)
+		level2_button.disabled = true
+	if GameManager.level3_blocked:
+		level3_button.modulate = Color(0.5, 0.5, 0.5, 0.5)
+		level3_button.disabled = true
+	if GameManager.level4_blocked:
+		level4_button.modulate = Color(0.5, 0.5, 0.5, 0.5)
+		level4_button.disabled = true
+	if GameManager.level5_blocked:
+		level5_button.modulate = Color(0.5, 0.5, 0.5, 0.5)
+		level5_button.disabled = true
+	if GameManager.level6_blocked:
+		level6_button.modulate = Color(0.5, 0.5, 0.5, 0.5)
+		level6_button.disabled = true
+	
 
 # Hovering	
 func _on_retun_button_mouse_entered() -> void:
@@ -67,31 +96,36 @@ func _on_button_level_1_mouse_exited() -> void:
 	level1_button.scale = Vector2(0.15, 0.15)
 	
 func _on_button_level_2_mouse_entered() -> void:
-	level2_button.scale = Vector2(0.2, 0.2)
-	
+	if not level2_button.disabled:
+		level2_button.scale = Vector2(0.2, 0.2)
+
 func _on_button_level_2_mouse_exited() -> void:
 	level2_button.scale = Vector2(0.15, 0.15)
 		
 func _on_button_level_3_mouse_entered() -> void:
-	level3_button.scale = Vector2(0.2, 0.2)
+	if not level3_button.disabled:
+		level3_button.scale = Vector2(0.2, 0.2)
 	
 func _on_button_level_3_mouse_exited() -> void:
 	level3_button.scale = Vector2(0.15, 0.15)
 	
 func _on_button_level_4_mouse_entered() -> void:
-	level4_button.scale = Vector2(0.2, 0.2)	
+	if not level4_button.disabled:
+		level4_button.scale = Vector2(0.2, 0.2)	
 	
 func _on_button_level_4_mouse_exited() -> void:
-	level4_button.scale = Vector2(0.15, 0.15)	
+		level4_button.scale = Vector2(0.15, 0.15)	
 	
 func _on_button_level_5_mouse_entered() -> void:
-	level5_button.scale = Vector2(0.2, 0.2)
+	if not level5_button.disabled:
+		level5_button.scale = Vector2(0.2, 0.2)
 		
 func _on_button_level_5_mouse_exited() -> void:
 	level5_button.scale = Vector2(0.15, 0.15)	
 
 func _on_button_level_6_mouse_entered() -> void:
-	level6_button.scale = Vector2(0.2, 0.2)
+	if not level6_button.disabled:
+		level6_button.scale = Vector2(0.2, 0.2)
 		
 func _on_button_level_6_mouse_exited() -> void:
 	level6_button.scale = Vector2(0.15, 0.15)	
