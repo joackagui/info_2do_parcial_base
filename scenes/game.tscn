@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://biuagxx08tqcb" path="res://scripts/grid.gd" id="4_4jr62"]
 [ext_resource type="FontFile" uid="uid://b25431rxog83j" path="res://assets/fonts/Kenney Blocks.ttf" id="5_gee14"]
 [ext_resource type="AudioStream" uid="uid://b6462uyftaird" path="res://assets/music/match_sound.ogg" id="6_gee14"]
-[ext_resource type="PackedScene" path="res://scenes/game_over.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://ifuw8khbbkg2" path="res://scenes/game_over.tscn" id="6_p57ef"]
 [ext_resource type="AudioStream" uid="uid://cdudi1ygxpixy" path="res://assets/music/error_sound.ogg" id="6_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://bps71bxfi3jvw" path="res://scenes/game_won.tscn" id="7_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://b7rjs7trrlpwf" path="res://assets/music/row_column_banish.ogg" id="8_0tnpc"]
