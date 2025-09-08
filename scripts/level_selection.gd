@@ -17,7 +17,6 @@ extends Node2D
 func _ready() -> void:
 	update_mode()
 	
-	
 func _on_retun_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
@@ -81,7 +80,6 @@ func update_mode():
 	if GameManager.level6_blocked:
 		level6_button.modulate = Color(0.5, 0.5, 0.5, 0.5)
 		level6_button.disabled = true
-	
 
 # Hovering	
 func _on_retun_button_mouse_entered() -> void:
