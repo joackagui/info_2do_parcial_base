@@ -4,6 +4,9 @@ extends Node2D
 @onready var top_ui = $top_ui
 @onready var game_timer = $game_timer
 @onready var game_theme = $GameTheme
+@onready var game_lost = $game_over
+@onready var game_won = $game_won
+@onready var bottom_buttom = $bottom_button
 
 var level: int = 1
 var goal: int = 2000
@@ -12,6 +15,9 @@ var time_mode: bool = true
 func _ready():
 	game_theme.play()
 	game_theme.volume_db = -20
+	game_lost.visible = false
+	game_won.visible = false
+
 	level = GameManager.level
 	time_mode = GameManager.time_mode
 	goal = GameManager.goal
@@ -58,8 +64,8 @@ func _check_end_game():
 
 func _game_over():
 	game_timer.stop()
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	grid.state = grid.WAIT
+	game_lost.visible = true
 	print("GAME OVER")
 
 func _game_won():
@@ -80,4 +86,14 @@ func _game_won():
 		GameManager.level6_blocked = false
 	if level == 6:
 		GameManager.level6_passed = true
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+		
+	game_won.visible = true
+
+func _on_bottom_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/level_selection.tscn")
+
+func _on_bottom_button_mouse_entered() -> void:
+	bottom_buttom.scale = Vector2(1, 1)
+
+func _on_bottom_button_mouse_exited() -> void:
+	bottom_buttom.scale = Vector2(0.8, 0.8)

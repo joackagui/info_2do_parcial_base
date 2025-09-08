@@ -1,3 +1,52 @@
-[gd_scene load_steps=0 format=3 uid="uid://ifuw8khbbkg2"]
+[gd_scene load_steps=7 format=3 uid="uid://ifuw8khbbkg2"]
+
+[ext_resource type="Texture2D" uid="uid://dlovkj526sjmr" path="res://assets/GameOver Background.png" id="1_7m3ot"]
+[ext_resource type="Script" uid="uid://bswbo8t0sk8qk" path="res://scripts/game_over.gd" id="1_v3hpu"]
+[ext_resource type="Texture2D" uid="uid://bx7uow2jqv73x" path="res://assets/buttons/main_menu_button.png" id="2_v3hpu"]
+[ext_resource type="Texture2D" uid="uid://dvfgpbcvbqm3c" path="res://assets/buttons/replay_button.png" id="3_irg28"]
+[ext_resource type="Texture2D" uid="uid://d1ucglmj14llv" path="res://assets/pieces/Rainbow.png" id="4_2jtsn"]
+[ext_resource type="Texture2D" uid="uid://ty35vbchno6w" path="res://assets/Locks.png" id="5_8bugq"]
 
 [node name="IngameButtons" type="Node2D"]
+script = ExtResource("1_v3hpu")
+
+[node name="GameOverBackground" type="Sprite2D" parent="."]
+modulate = Color(0.2352, 0.2856, 0.84, 1)
+position = Vector2(291, 302)
+texture = ExtResource("1_7m3ot")
+
+[node name="Rainbow" type="Sprite2D" parent="."]
+position = Vector2(288.5, 283.5)
+scale = Vector2(1.66406, 1.66406)
+texture = ExtResource("4_2jtsn")
+
+[node name="Locks" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(290, 283)
+scale = Vector2(1.69531, 1.69531)
+texture = ExtResource("5_8bugq")
+
+[node name="replay_button" type="TextureButton" parent="."]
+offset_left = -172.0
+offset_top = -138.0
+offset_right = 1028.0
+offset_bottom = 1062.0
+scale = Vector2(0.12, 0.12)
+pivot_offset = Vector2(600, 600)
+texture_normal = ExtResource("3_irg28")
+
+[node name="main_menu_button" type="TextureButton" parent="."]
+offset_left = -448.0
+offset_top = -137.0
+offset_right = 752.0
+offset_bottom = 1063.0
+scale = Vector2(0.12, 0.12)
+pivot_offset = Vector2(600, 600)
+texture_normal = ExtResource("2_v3hpu")
+
+[connection signal="mouse_entered" from="replay_button" to="." method="_on_replay_button_mouse_entered"]
+[connection signal="mouse_exited" from="replay_button" to="." method="_on_replay_button_mouse_exited"]
+[connection signal="pressed" from="replay_button" to="." method="_on_replay_button_pressed"]
+[connection signal="mouse_entered" from="main_menu_button" to="." method="_on_main_menu_button_mouse_entered"]
+[connection signal="mouse_exited" from="main_menu_button" to="." method="_on_main_menu_button_mouse_exited"]
+[connection signal="pressed" from="main_menu_button" to="." method="_on_main_menu_button_pressed"]
