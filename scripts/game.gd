@@ -3,18 +3,21 @@ extends Node2D
 @onready var grid = $grid
 @onready var top_ui = $top_ui
 @onready var game_timer = $game_timer
+@onready var game_theme = $GameTheme
 
 var level: int = 1
 var goal: int = 2000
 var time_mode: bool = true
 
 func _ready():
+	game_theme.play()
+	game_theme.volume_db = -20
 	level = GameManager.level
 	time_mode = GameManager.time_mode
 	goal = GameManager.goal
 	grid.add_score.connect(on_add_score)
 	
-	var level_goal = 5000 + 2000 * level
+	var level_goal = 5000 + 1000 * level
 	goal = level_goal
 	top_ui.set_goal(level_goal)
 	
@@ -24,7 +27,7 @@ func _ready():
 		game_timer.start()
 	else:
 		grid.reduce_counter.connect(on_reduce_counter)
-		var level_counter = 100 - 10 * level
+		var level_counter = 90 - 10 * level
 		top_ui.set_counter(level_counter)
 		game_timer.stop()
 	top_ui.update_labels()

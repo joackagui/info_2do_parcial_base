@@ -1,3 +1,3 @@
-[gd_scene format=3 uid="uid://ifuw8khbbkg2"]
+[gd_scene load_steps=0 format=3 uid="uid://ifuw8khbbkg2"]
 
 [node name="IngameButtons" type="Node2D"]

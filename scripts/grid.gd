@@ -11,6 +11,9 @@ var state
 @export var y_start: int
 @export var offset: int
 @export var y_offset: int
+@onready var error_sound = $ErrorSound
+@onready var match_sound = $MatchSound
+@onready var row_column_banish = $RowColumnBanish
 
 # piece array
 var possible_pieces = [
@@ -363,6 +366,8 @@ func destroy_matched():
 							all_pieces[i][y].dim_2()
 							all_pieces[i][y] = null
 							destroyed_count += 1
+					row_column_banish.play()
+					row_column_banish.volume_db = -20
 				elif all_pieces[i][j].special_type == "row":
 					# destruir toda la fila j
 					for x in width:
@@ -370,6 +375,8 @@ func destroy_matched():
 							all_pieces[x][j].dim_2()
 							all_pieces[x][j] = null
 							destroyed_count += 1
+					row_column_banish.play()
+					row_column_banish.volume_db = -20
 				elif all_pieces[i][j].special_type == "column":
 					# destruir toda la columna i
 					for y in height:
@@ -377,11 +384,15 @@ func destroy_matched():
 							all_pieces[i][y].dim_2()
 							all_pieces[i][y] = null
 							destroyed_count += 1
+					row_column_banish.play()
+					row_column_banish.volume_db = -20
 				else:
 					# pieza normal
 					all_pieces[i][j].dim_2()
 					all_pieces[i][j] = null
 					destroyed_count += 1
+					match_sound.play()
+					match_sound.volume_db = -20
 				was_matched = true
 				
 	if destroyed_count > 0:
@@ -390,10 +401,11 @@ func destroy_matched():
 	move_checked = true
 	if was_matched:
 		reduce_counter.emit()
-
 		get_parent().get_node("collapse_timer").start()
 	else:
 		swap_back()
+		error_sound.play()
+		error_sound.volume_db = -20
 
 func collapse_columns():
 	for i in width:

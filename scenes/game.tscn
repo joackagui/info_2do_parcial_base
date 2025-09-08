@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://merqfx7p4lea"]
+[gd_scene load_steps=10 format=3 uid="uid://merqfx7p4lea"]
 
 [ext_resource type="Texture2D" uid="uid://brp4euwugc18f" path="res://assets/background.png" id="1_blg2x"]
 [ext_resource type="Script" uid="uid://dfw5gump6wpt4" path="res://scripts/game.gd" id="1_iywne"]
 [ext_resource type="PackedScene" uid="uid://bt33j5dwxano3" path="res://scenes/top_ui.tscn" id="2_wrbvl"]
 [ext_resource type="Texture2D" uid="uid://cdunkljd6up72" path="res://assets/bottom_ui.png" id="3_jy0d4"]
 [ext_resource type="Script" uid="uid://biuagxx08tqcb" path="res://scripts/grid.gd" id="4_4jr62"]
+[ext_resource type="AudioStream" uid="uid://b6462uyftaird" path="res://assets/music/match_sound.ogg" id="6_gee14"]
+[ext_resource type="AudioStream" uid="uid://bg3elp7gnxm6h" path="res://assets/music/game_theme.ogg" id="6_p57ef"]
+[ext_resource type="AudioStream" uid="uid://cdudi1ygxpixy" path="res://assets/music/error_sound.ogg" id="6_u5sy4"]
+[ext_resource type="AudioStream" uid="uid://b7rjs7trrlpwf" path="res://assets/music/row_column_banish.ogg" id="8_0tnpc"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_iywne")
@@ -31,6 +35,15 @@ y_start = 800
 offset = 64
 y_offset = 2
 
+[node name="MatchSound" type="AudioStreamPlayer" parent="grid"]
+stream = ExtResource("6_gee14")
+
+[node name="ErrorSound" type="AudioStreamPlayer" parent="grid"]
+stream = ExtResource("6_u5sy4")
+
+[node name="RowColumnBanish" type="AudioStreamPlayer" parent="grid"]
+stream = ExtResource("8_0tnpc")
+
 [node name="destroy_timer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
@@ -45,6 +58,10 @@ one_shot = true
 
 [node name="game_timer" type="Timer" parent="."]
 autostart = true
+
+[node name="GameTheme" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_p57ef")
 
 [connection signal="timeout" from="destroy_timer" to="grid" method="_on_destroy_timer_timeout"]
 [connection signal="timeout" from="collapse_timer" to="grid" method="_on_collapse_timer_timeout"]
