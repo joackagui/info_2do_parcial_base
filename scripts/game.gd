@@ -17,7 +17,7 @@ func _ready():
 	goal = GameManager.goal
 	grid.add_score.connect(on_add_score)
 	
-	var level_goal = 5000 + 1000 * level
+	var level_goal =  + 1000 * level
 	goal = level_goal
 	top_ui.set_goal(level_goal)
 	
@@ -63,21 +63,40 @@ func _game_over():
 	print("GAME OVER")
 
 func _game_won():
-	if level == 1:
-		GameManager.level1_passed = true
-		GameManager.level2_blocked = false
-	if level == 2:
-		GameManager.level2_passed = true
-		GameManager.level3_blocked = false
-	if level == 3:
-		GameManager.level3_passed = true
-		GameManager.level4_blocked = false
-	if level == 4:
-		GameManager.level4_passed = true
-		GameManager.level5_blocked = false
-	if level == 5:
-		GameManager.level5_passed = true
-		GameManager.level6_blocked = false
-	if level == 6:
-		GameManager.level6_passed = true
+	if GameManager.time_mode:
+		if level == 1:
+			GameManager.level1_time_passed = true
+			GameManager.level2_time_blocked = false
+		if level == 2:
+			GameManager.level2_time_passed = true
+			GameManager.level3_time_blocked = false
+		if level == 3:
+			GameManager.level3_time_passed = true
+			GameManager.level4_time_blocked = false
+		if level == 4:
+			GameManager.level4_time_passed = true
+			GameManager.level5_time_blocked = false
+		if level == 5:
+			GameManager.level5_time_passed = true
+			GameManager.level6_time_blocked = false
+		if level == 6:
+			GameManager.level6_time_passed = true
+	else:
+		if level == 1:
+			GameManager.level1_attempt_passed = true
+			GameManager.level2_attempt_blocked = false
+		if level == 2:
+			GameManager.level2_attempt_passed = true
+			GameManager.level3_attempt_blocked = false
+		if level == 3:
+			GameManager.level3_attempt_passed = true
+			GameManager.level4_attempt_blocked = false
+		if level == 4:
+			GameManager.level4_attempt_passed = true
+			GameManager.level5_attempt_blocked = false
+		if level == 5:
+			GameManager.level5_attempt_passed = true
+			GameManager.level6_attempt_blocked = false
+		if level == 6:
+			GameManager.level6_attempt_passed = true
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
