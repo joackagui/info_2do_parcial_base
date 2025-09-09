@@ -76,12 +76,13 @@ El juego incluye:
 
 ## 🌟 Características
 
-*Mecánica match-3 intuitiva.
-*Animaciones y sonidos para cada acción.
-*Dificultad progresiva en cada nivel.
-*Bloques especiales** con efectos estratégicos.
-*Modo tiempo y modo movimientos, para variedad de juego.
-*Gestión de estados y señales en Godot bien organizada.
+- Mecánica match-3 intuitiva.
+- Animaciones y sonidos para cada acción.
+- Dificultad progresiva en cada nivel.
+- Bloques especiales con efectos estratégicos.
+- Modo tiempo y modo movimientos, para variedad de juego.
+- Gestión de estados y señales en Godot bien organizada.
+- Música interactiva durante los niveles.
 
 ---
 
