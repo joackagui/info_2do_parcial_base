@@ -32,7 +32,7 @@ El juego incluye:
 - **3 en línea** → Se destruyen las piezas, otorgando puntos.  
 - **4 en línea** → Crea un bloque especial que destruye **toda una fila o columna**.  
 - **5 en línea** → Genera un bloque **estrella** que elimina tanto la fila como la columna de la pieza.  
-- **Combinación con pieza arcoíris 🌈** → Elimina todas las piezas del color seleccionado en el tablero.  
+- **Combinación con pieza arcoíris 🌈** → Elimina todas las piezas del color en el tablero, para que funcione necesita una combinación de 4 fichas del mismo color.  
 
 ### Objetivo
 
