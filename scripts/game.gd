@@ -69,6 +69,8 @@ func _game_over():
 	print("GAME OVER")
 
 func _game_won():
+	game_timer.stop()
+	grid.state = grid.WAIT
 	if GameManager.time_mode:
 		if level == 1:
 			GameManager.level1_time_passed = true
