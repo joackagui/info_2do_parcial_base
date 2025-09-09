@@ -46,7 +46,7 @@ El juego incluye:
    Clona o descarga este repositorio:
 
    ```bash
-   git clone https://github.com/tuusuario/puzzle-crush.git
+   git clone https://github.com/joackagui/info_2do_parcial_base.git
 
 
 2. **Abrir en Godot**
@@ -97,6 +97,6 @@ El juego incluye:
 
 Juego desarrollado como práctica de desarrollo de videojuegos con Godot Engine.
 
-- **Aguilera Joaquin - 78619**
+- **Aguilera Joaquin**
 
-- **Alba Diego - 77581**
+- **Alba Diego**
