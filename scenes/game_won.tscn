@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bps71bxfi3jvw"]
 
 [ext_resource type="Script" uid="uid://dlwdoreeforee" path="res://scripts/game_won.gd" id="1_8qx7a"]
-[ext_resource type="Texture2D" uid="uid://dlovkj526sjmr" path="res://assets/GameOver Background.png" id="2_ol4t4"]
+[ext_resource type="Texture2D" uid="uid://mlsyvu0bxsh5" path="res://assets/gamewooon.png" id="2_b0vlw"]
 [ext_resource type="Texture2D" uid="uid://d1ucglmj14llv" path="res://assets/pieces/Rainbow.png" id="3_k5fdv"]
 [ext_resource type="Texture2D" uid="uid://i7ca7ok40wj5" path="res://assets/buttons/next_level_button.png" id="6_8qx7a"]
 [ext_resource type="Texture2D" uid="uid://bx7uow2jqv73x" path="res://assets/buttons/main_menu_button.png" id="6_34cnp"]
@@ -11,11 +11,12 @@ script = ExtResource("1_8qx7a")
 
 [node name="GameOverBackground" type="Sprite2D" parent="."]
 modulate = Color(0.121569, 0.878431, 0.262745, 1)
-position = Vector2(291, 302)
-texture = ExtResource("2_ol4t4")
+position = Vector2(285, 321.5)
+scale = Vector2(0.507812, 0.508789)
+texture = ExtResource("2_b0vlw")
 
 [node name="Rainbow" type="Sprite2D" parent="."]
-position = Vector2(288.5, 283.5)
+position = Vector2(289, 314)
 scale = Vector2(1.66406, 1.66406)
 texture = ExtResource("3_k5fdv")
 
